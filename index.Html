@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>deadpool</title>
+</head>
+<body>
+    <div id="card-container" data-offset="2">
+        <div class="pg">
+           <img src="http://riccardotartaglia.it/img/deadpool/deadpool.png">
+        </div>
+        <div id="card">
+           <div class="shine"></div>
+           <div class="text-block">
+              <h1>Deadpool <small>(2016)</small></h1>
+              <h3>Action, Adventure, Sci-Fi</h3>
+              <p>
+                 Deadpool is a 2016 American superhero film based on the Marvel Comics character of the same name. It is the eighth installment of the X-Men film series, and is directed by Tim Miller.
+              </p>
+              <button>Watch Trailer</button>
+           </div>
+        </div>
+     </div>
+
+     <script>
+         var $poster = $("#card-container"),
+   $shine = $(".shine"),
+   w = $(window).width(),
+   h = $(window).height();
+
+$(window).on("mousemove", function (e) {
+   var offsetX = 0.5 - e.pageX / w,
+      offsetY = 0.5 - e.pageY / h,
+      dy = e.pageY - h / 2,
+      dx = e.pageX - w / 2,
+      theta = Math.atan2(dy, dx),
+      angle = (theta * 180) / Math.PI - 90,
+      offsetPoster = $poster.data("offset"),
+      transformPoster =
+         "translateY(" +
+         -offsetX * offsetPoster +
+         "px) rotateX(" +
+         -offsetY * offsetPoster +
+         "deg) rotateY(" +
+         offsetX * (offsetPoster * 2) +
+         "deg)";
+
+   if (angle < 0) {
+      angle = angle + 360;
+   }
+   $shine.css(
+      "background",
+      "linear-gradient(" +
+         angle +
+         "deg, rgba(0,0,0," +
+         e.pageY / h / 5 +
+         ") 0%,rgba(0,0,0,.25) 80%)"
+   );
+
+   $poster.css("transform", transformPoster);
+});
+
+     </script>
+</html>
